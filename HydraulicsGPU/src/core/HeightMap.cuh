@@ -1,3 +1,4 @@
+#pragma once
 #include "utils/CudaUtils.h"   // always use paths relative to src/
 
 struct HeightMap {

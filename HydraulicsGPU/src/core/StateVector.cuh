@@ -1,6 +1,6 @@
 #pragma once
 #include "utils/CudaUtils.h"
-#include "core/HeightMap.h"
+#include "core/HeightMap.cuh"
 #include <cuda_runtime.h>
 #include <stdexcept>
 

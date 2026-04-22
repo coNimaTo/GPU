@@ -1,6 +1,6 @@
 #include <vector>
-#include "StateVector.h"
-#include "HeightMap.h"
+#include "StateVector.cuh"
+#include "HeightMap.cuh"
 
 // Upload and initialize: HeightMap (host) → T1 (device)
 void StateUpload(SimState& state, const HeightMap& hm) {
