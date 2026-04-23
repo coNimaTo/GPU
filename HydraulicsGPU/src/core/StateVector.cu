@@ -53,7 +53,9 @@ void StateRead(const SimState& state, HeightMap& hm, HeightMap& wm) {
     );
 
     cudaDeviceSynchronize();
-    for (int i = 0; i < N * N; ++i)
+    for (int i = 0; i < N * N; ++i){
         hm.data[i] = tmp[i].x;          // .x == b (terrain height)
         wm.data[i] = tmp[i].y;          // .y == w (water amount)
+    }
+        
 }
