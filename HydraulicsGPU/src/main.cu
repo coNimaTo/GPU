@@ -11,6 +11,18 @@
 
 #include "utils/Plotter.h"
 
+// ── Helpers ──────────────────────────────────────────────────────────────────
+
+static void saveHeightMap(const HeightMap& hm, const char* path) {
+    std::ofstream f(path, std::ios::binary);
+    if (!f) throw std::runtime_error("Could not open output file");
+    // Header: grid size as int
+    f.write(reinterpret_cast<const char*>(&hm.size), sizeof(int));
+    // Data: N*N floats
+    f.write(reinterpret_cast<const char*>(hm.data),
+            hm.size * hm.size * sizeof(float));
+}
+
 #define N 257
 
 int main(int argc, char *argv[]) {
@@ -30,8 +42,9 @@ int main(int argc, char *argv[]) {
     curandStatePhilox4_32_10_t* randStates = allocRandStates(N*N, 42UL);
 
     // ── Init heightmap ───────────────────────────────────────────────────────
-    HeightMap hm;
+    HeightMap hm, wm;
     hm.allocate(N);
+    wm.allocate(N);
 
     int algorithm = 0;
     if (argc > 1) {
@@ -50,6 +63,8 @@ int main(int argc, char *argv[]) {
             break;
     }
 
+    printf("HeightMap created");
+
     // ── Load heightmap to the State ───────────────────────────────────────────────────────
     SimState state;
     state.allocate(hm.size);
@@ -59,16 +74,30 @@ int main(int argc, char *argv[]) {
     for (int step = 0; step < N_STEPS; ++step) {
         launchPass1Rain(state, randStates, RAIN_AMOUNT, RAIN_DROPS);
         launchPass2    (state);
+
+        if (step % 50 == 0) {
+            printf("Step %d\n", step);
+            cudaDeviceSynchronize();
+
+            // Readback and save
+            StateRead(state, hm, wm);
+            char path[64];
+            snprintf(path, sizeof(path), "frames/terrain_%04d.bin", step);
+            saveHeightMap(hm, path);
+            snprintf(path, sizeof(path), "frames/water_%04d.bin", step);
+            saveHeightMap(wm, path);
+        }
     }
     cudaDeviceSynchronize();
     
     // ── Readback ────────────────────────────────────────────────────
-    StateRead(state, hm);
+    StateRead(state, hm, wm);
     hmap_print_ascii(hm, 8);
     
     // ── Cleanup ──────────────────────────────────────────────────────────────
     cudaFree(randStates);
     state.release();
     hm.release();
+    wm.release();
     return 0;
 }
