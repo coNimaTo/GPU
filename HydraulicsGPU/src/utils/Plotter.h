@@ -1,5 +1,5 @@
 #pragma once
-#include "core/HeightMap.h"
+#include "core/HeightMap.cuh"
 #include <stdio.h>     // printf
 
 //-------------------------------------------------------

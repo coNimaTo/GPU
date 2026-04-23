@@ -1,5 +1,5 @@
 #pragma once
-#include "utils/CudaUtils.h"
+#include "utils/CudaUtils.cuh"
 #include "core/HeightMap.cuh"
 #include <cuda_runtime.h>
 #include <stdexcept>
@@ -76,3 +76,8 @@ struct SimState {
 
     void release() { T1.release(); T2.release(); T3.release(); }
 };
+
+// Upload and initialize: HeightMap (host) → T1 (device)
+void StateUpload(SimState& state, const HeightMap& hm);
+// Readback: T1.b (device) → HeightMap (host)
+void StateRead(const SimState& state, HeightMap& hm);

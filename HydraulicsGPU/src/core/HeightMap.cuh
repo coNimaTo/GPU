@@ -1,5 +1,5 @@
 #pragma once
-#include "utils/CudaUtils.h"   // always use paths relative to src/
+#include "utils/CudaUtils.cuh"   // always use paths relative to src/
 
 struct HeightMap {
     float *data;

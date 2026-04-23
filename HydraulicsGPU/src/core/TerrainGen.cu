@@ -1,4 +1,4 @@
-#include "core/HeightMap.h"
+#include "core/HeightMap.cuh"
 #include <math.h>      // floorf
 #include <stdlib.h>    // rand, srand
 

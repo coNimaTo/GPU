@@ -1,8 +1,9 @@
 #pragma once
-#include "utils/CudaUtils.h"
+#include "utils/CudaUtils.cuh"
+#include "StateVector.cuh"
+#include <vector>
 #include <cuda_runtime.h>
 #include <curand_kernel.h>
-#include "StateVector.h"
 
 static const dim3 BLOCK(16, 16);
 static dim3 grid(int N) { return dim3((N+15)/16, (N+15)/16); }
@@ -56,7 +57,7 @@ __global__ void pass1Rain(
     surf2Dwrite(cell, T1write, x * sizeof(float4), y);
 }
 
-void launchPass1Rain(SimState& state, curandState* randStates,
+void launchPass1Rain(SimState& state, curandStatePhilox4_32_10_t* randStates,
                      float rainAmount, int rainDrops)
 {
     int N = state.N;

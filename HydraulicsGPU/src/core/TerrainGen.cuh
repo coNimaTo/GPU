@@ -1,6 +1,6 @@
 #pragma once
-#include "utils/CudaUtils.h"
-#include "core/HeightMap.h"
+#include "utils/CudaUtils.cuh"
+#include "core/HeightMap.cuh"
 
 void terrain_perlin(HeightMap &hm, int octaves, float persistence,
                     float frequency, unsigned seed);

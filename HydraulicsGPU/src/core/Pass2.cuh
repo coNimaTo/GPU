@@ -1,8 +1,8 @@
 #pragma once
-#include <cuda_runtime.h>
-#include "utils/CudaUtils.h"
-#include "StateVector.h"
+#include "utils/CudaUtils.cuh"
+#include "StateVector.cuh"
 #include "constants.cuh"
+#include <cuda_runtime.h>
 
 __global__ void pass2(
     cudaSurfaceObject_t             T1read,
