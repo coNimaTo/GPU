@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
     uploadConstants(DT, GRAVITY, DX);
 
     // ── Init RNG ─────────────────────────────────────────────────────────────
-    curandStatePhilox4_32_10_t* randStates = allocRandStates(N*N, 42UL);
+    curandStatePhilox4_32_10_t* randStates = allocRandStates(N, 42UL);
 
     // ── Init heightmap ───────────────────────────────────────────────────────
     HeightMap hm, wm;
