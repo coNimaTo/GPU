@@ -8,6 +8,7 @@
 #include "core/constants.cuh"
 #include "core/Pass1.cuh"
 #include "core/Pass2.cuh"
+#include "core/Pass3.cuh"
 
 #include "utils/Plotter.h"
 
@@ -23,15 +24,15 @@ static void saveHeightMap(const HeightMap& hm, const char* path) {
             hm.size * hm.size * sizeof(float));
 }
 
-#define N 33
+#define N 129
 
 int main(int argc, char *argv[]) {
 
     // ── Simulation parameters ────────────────────────────────────────────────
-    constexpr float DT          = 0.1f;
+    constexpr float DT          = 0.01f;
     constexpr float GRAVITY     = 9.81f;
     constexpr float DX          = 1.0f;
-    constexpr int   N_STEPS     = 1000;
+    constexpr int   N_STEPS     = 10000;
     // constexpr float RAIN_AMOUNT = 1.f;
     // constexpr int   RAIN_DROPS  = 1;
 
@@ -72,16 +73,16 @@ int main(int argc, char *argv[]) {
 
     // Water Sources
     std::vector<WaterSource> sources = {
-        {10, 10, 1.f},
-        {20, 5, 0.5f}
+        {10, 10, .6f}
     };
     WaterSource* d_sources = uploadSources(sources);
 
     // ── Simulation loop ──────────────────────────────────────────────────────
     for (int step = 0; step < N_STEPS; ++step) {
         // launchPass1Rain(state, randStates, RAIN_AMOUNT, RAIN_DROPS);
-        launchPass1Sources(state, d_sources, sources.size());
-        launchPass2    (state);
+        launchPass1Sources  (state, d_sources, sources.size());
+        launchPass2         (state);
+        launchPass3         (state);
 
         if (step % 50 == 0) {
             printf("Step %d\n", step);

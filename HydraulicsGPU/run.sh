@@ -7,12 +7,12 @@
 #$ -cwd
 #$ -j y
 #$ -S /bin/bash
-#$ -q gpu
+#$ -q gpushort
 #$ -l gpu=1
 #$ -l memoria_a_usar=1G
 #$ -N TestRun
 #
-#cargar variables de entorno para encontrar cuda
+# cargar variables de entorno para encontrar cuda
 
 nvidia-smi
 module load cuda/12.2.1-gcc-11.1.0-fvljoe5
