@@ -1,0 +1,99 @@
+Allocated GPU(s) with id(s):  0
+Setting CUDA_VISIBLE_DEVICES=0
+Setting NV_GPU=0
+Fri Apr 24 13:14:53 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.90.07              Driver Version: 550.90.07      CUDA Version: 12.4     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 2080 Ti     Off |   00000000:02:00.0 Off |                  N/A |
+| 15%   44C    P0             N/A /  260W |       1MiB /  11264MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+DeviceID: 0
+========= COMPUTE-SANITIZER
+========= Program hit cudaErrorInvalidSymbol (error 13) due to "invalid device symbol" on CUDA API call to cudaMemcpyToSymbol.
+=========     Saved host backtrace up to driver entry point at error
+=========     Host Frame: [0x445b06]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:cudaMemcpyToSymbol [0x6744a]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x4873]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4d2b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Program hit cudaErrorInvalidSymbol (error 13) due to "invalid device symbol" on CUDA API call to cudaMemcpyToSymbol.
+=========     Saved host backtrace up to driver entry point at error
+=========     Host Frame: [0x445b06]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:cudaMemcpyToSymbol [0x6744a]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x488f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4d2b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Program hit cudaErrorInvalidSymbol (error 13) due to "invalid device symbol" on CUDA API call to cudaMemcpyToSymbol.
+=========     Saved host backtrace up to driver entry point at error
+=========     Host Frame: [0x445b06]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:cudaMemcpyToSymbol [0x6744a]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x48a9]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4d2b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Program hit cudaErrorSymbolNotFound (error 500) due to "named symbol not found" on CUDA API call to cudaLaunchKernel.
+=========     Saved host backtrace up to driver entry point at error
+=========     Host Frame: [0x445b06]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:cudaLaunchKernel [0x6c458]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z11setupPhiloxP24curandStatePhilox4_32_10iy(curandStatePhilox4_32_10*, int, unsigned long long) [0x602e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:allocRandStates(int, unsigned long) [0x60cf]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x48b8]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4d2b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Program hit cudaErrorInvalidSymbol (error 13) due to "invalid device symbol" on CUDA API call to cudaMemcpyToSymbol.
+=========     Saved host backtrace up to driver entry point at error
+=========     Host Frame: [0x445b06]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:cudaMemcpyToSymbol [0x6744a]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:terrain_perlin(HeightMap&, int, float, float, unsigned int) [0x5ae9]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x4918]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4d2b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+CUDA error src/core/TerrainGen.cu:91 - invalid device symbol
+========= Target application returned an error
+========= ERROR SUMMARY: 5 errors

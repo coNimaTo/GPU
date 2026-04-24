@@ -10,7 +10,10 @@ OBJS_GPU := $(patsubst $(SRCDIR)/%.cu, $(BLDDIR)/gpu/%.o, $(SRCS))
 
 CXXFLAGS  := -O2 -std=c++11 -I$(SRCDIR)
 NVCCFLAGS := -O2 -arch=sm_86 -rdc=true -I$(SRCDIR)
-
+NVCCFLAGS := -O2 -rdc=true -I$(SRCDIR) \
+			 -gencode arch=compute_75,code=sm_75 \
+			 -gencode arch=compute_86,code=sm_86 \
+			 -gencode arch=compute_75,code=compute_75
 .PHONY: cpu gpu clean
 
 cpu: $(OBJS_CPU)

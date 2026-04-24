@@ -23,17 +23,17 @@ static void saveHeightMap(const HeightMap& hm, const char* path) {
             hm.size * hm.size * sizeof(float));
 }
 
-#define N 257
+#define N 33
 
 int main(int argc, char *argv[]) {
 
     // ── Simulation parameters ────────────────────────────────────────────────
-    constexpr float DT          = 0.01f;
+    constexpr float DT          = 0.1f;
     constexpr float GRAVITY     = 9.81f;
     constexpr float DX          = 1.0f;
     constexpr int   N_STEPS     = 1000;
-    constexpr float RAIN_AMOUNT = 0.01f;
-    constexpr int   RAIN_DROPS  = 512;
+    // constexpr float RAIN_AMOUNT = 1.f;
+    // constexpr int   RAIN_DROPS  = 1;
 
     // ── Upload constants───────────────────────────────────────
     uploadConstants(DT, GRAVITY, DX);
@@ -70,9 +70,17 @@ int main(int argc, char *argv[]) {
     state.allocate(hm.size);
     StateUpload(state, hm);
 
+    // Water Sources
+    std::vector<WaterSource> sources = {
+        {10, 10, 1.f},
+        {20, 5, 0.5f}
+    };
+    WaterSource* d_sources = uploadSources(sources);
+
     // ── Simulation loop ──────────────────────────────────────────────────────
     for (int step = 0; step < N_STEPS; ++step) {
-        launchPass1Rain(state, randStates, RAIN_AMOUNT, RAIN_DROPS);
+        // launchPass1Rain(state, randStates, RAIN_AMOUNT, RAIN_DROPS);
+        launchPass1Sources(state, d_sources, sources.size());
         launchPass2    (state);
 
         if (step % 50 == 0) {

@@ -1,0 +1,1048 @@
+Allocated GPU(s) with id(s):  0
+Setting CUDA_VISIBLE_DEVICES=0
+Setting NV_GPU=0
+Fri Apr 24 02:01:57 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.90.07              Driver Version: 550.90.07      CUDA Version: 12.4     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 3080        Off |   00000000:3E:00.0 Off |                  N/A |
+|  0%   57C    P2            104W /  340W |     498MiB /  10240MiB |     17%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   1  NVIDIA GeForce RTX 3080        Off |   00000000:89:00.0 Off |                  N/A |
+|  0%   43C    P0             93W /  340W |       1MiB /  10240MiB |      1%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   2  NVIDIA GeForce RTX 3080 Ti     Off |   00000000:B2:00.0 Off |                  N/A |
+|  0%   40C    P0             97W /  350W |       1MiB /  12288MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A     99181      C   python                                        492MiB |
++-----------------------------------------------------------------------------------------+
+DeviceID: 0
+========= COMPUTE-SANITIZER
+========= Out-of-range shared or local address
+=========     at 0x110 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,8,0) in block (0,0,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x180 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,0,0) in block (8,16,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x170 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,0,0) in block (2,0,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x180 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,0,0) in block (9,16,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x170 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,0,0) in block (4,0,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x140 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,12,0) in block (16,4,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x170 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,0,0) in block (6,0,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x140 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,12,0) in block (16,11,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x170 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,0,0) in block (8,0,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x110 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,12,0) in block (0,12,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x170 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,0,0) in block (10,0,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x180 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,0,0) in block (13,16,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x170 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,0,0) in block (12,0,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x180 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,0,0) in block (14,16,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x170 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,0,0) in block (14,0,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x180 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,0,0) in block (15,16,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x140 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,10,0) in block (16,0,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x140 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,0,0) in block (16,16,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x140 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,12,0) in block (16,9,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x110 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,12,0) in block (0,10,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x140 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,10,0) in block (16,5,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x110 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,0,0) in block (0,6,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x140 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,12,0) in block (16,14,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x110 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,12,0) in block (0,15,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x140 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,8,0) in block (16,1,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x110 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,10,0) in block (0,2,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x140 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,10,0) in block (16,6,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x140 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,12,0) in block (16,12,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x110 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,12,0) in block (0,13,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x140 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,12,0) in block (16,2,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x140 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,10,0) in block (16,10,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x110 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,12,0) in block (0,11,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x140 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,10,0) in block (16,15,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x140 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,0,0) in block (16,7,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x110 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,0,0) in block (0,16,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x110 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,4,0) in block (0,8,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x140 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,14,0) in block (16,3,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x110 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,14,0) in block (0,9,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x110 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,8,0) in block (0,4,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x180 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,0,0) in block (3,16,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x180 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,0,0) in block (4,16,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x180 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,0,0) in block (5,16,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x140 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,0,0) in block (16,13,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x180 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,0,0) in block (6,16,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x110 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,12,0) in block (0,14,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Out-of-range shared or local address
+=========     at 0x180 in pass2(unsigned long long, unsigned long long, unsigned long long, int)
+=========     by thread (0,0,0) in block (7,16,0)
+=========     Saved host backtrace up to driver entry point at kernel launch time
+=========     Host Frame: [0x2f16d0]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:libcudart_static_4d8b33a106dceb3c07a56e26de61f2d53bb62a68 [0xc0fe]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:cudaLaunchKernel [0x6c30e]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__device_stub__Z5pass2yyyi(unsigned long long, unsigned long long, unsigned long long, int) [0x63dd]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:launchPass2(SimState&) [0x648f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x495f]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Program hit cudaErrorIllegalAddress (error 700) due to "an illegal memory access was encountered" on CUDA API call to cudaDeviceSynchronize.
+=========     Saved host backtrace up to driver entry point at error
+=========     Host Frame: [0x445b06]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:cudaDeviceSynchronize [0x44224]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x4981]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Program hit cudaErrorIllegalAddress (error 700) due to "an illegal memory access was encountered" on CUDA API call to cudaMemcpy2DFromArray.
+=========     Saved host backtrace up to driver entry point at error
+=========     Host Frame: [0x445b06]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:cudaMemcpy2DFromArray [0x681c3]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:StateRead(SimState const&, HeightMap&, HeightMap&) [0x5020]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x4991]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+========= Program hit cudaErrorIllegalAddress (error 700) due to "an illegal memory access was encountered" on CUDA API call to cudaDeviceSynchronize.
+=========     Saved host backtrace up to driver entry point at error
+=========     Host Frame: [0x445b06]
+=========                in /lib64/libcuda.so.1
+=========     Host Frame:cudaDeviceSynchronize [0x44224]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:StateRead(SimState const&, HeightMap&, HeightMap&) [0x5027]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:main [0x4991]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+=========     Host Frame:__libc_start_main [0x22555]
+=========                in /lib64/libc.so.6
+=========     Host Frame: [0x4c4b]
+=========                in /home/nicolas.tomaselli/GPU/HydraulicsGPU/./terrain
+========= 
+terminate called after throwing an instance of 'std::runtime_error'
+  what():  Could not open output file
+HeightMap createdStep 0
+========= Error: process didn't terminate successfully
+========= Target application returned an error
+========= ERROR SUMMARY: 49 errors
