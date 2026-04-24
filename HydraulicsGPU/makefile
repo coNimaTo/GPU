@@ -21,7 +21,7 @@ $(BLDDIR)/cpu/%.o: $(SRCDIR)/%.cu
 	$(CXX) $(CXXFLAGS) -x c++ -c $< -o $@
 
 gpu: $(OBJS_GPU)
-    $(NVCC) $(NVCCFLAGS) $^ -o $(TARGET)
+	$(NVCC) $(NVCCFLAGS) $^ -o $(TARGET)
 
 $(BLDDIR)/gpu/%.o: $(SRCDIR)/%.cu
 	@mkdir -p $(dir $@)
