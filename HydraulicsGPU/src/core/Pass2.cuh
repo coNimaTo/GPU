@@ -22,19 +22,14 @@ __global__ void pass2(
     surf2Dread(&cC, T1read, x * sizeof(float4), y);     // Center
     float hC = cC.x + cC.y;
     // Check for borders, in that case -> same height -> no outflow
-    if (x > 0)   surf2Dread(&cL, T1read, (x-1) * sizeof(float4), y);
+    if (x > 0)   surf2Dread(&cL, T1read, (x-1) * sizeof(float4), y);    // Left
     else         cL = make_float4(hC, 0.f, 0.f, 0.f);
-    if (x < N-1) surf2Dread(&cR, T1read, (x+1) * sizeof(float4), y);
+    if (x < N-1) surf2Dread(&cR, T1read, (x+1) * sizeof(float4), y);    // Right
     else         cR = make_float4(hC, 0.f, 0.f, 0.f);
-    if (y > 0)   surf2Dread(&cT, T1read, x * sizeof(float4), (y-1));
+    if (y > 0)   surf2Dread(&cT, T1read, x * sizeof(float4), (y-1));    // Top
     else         cT = make_float4(hC, 0.f, 0.f, 0.f);
-    if (y < N-1) surf2Dread(&cB, T1read, x * sizeof(float4), (y+1));
+    if (y < N-1) surf2Dread(&cB, T1read, x * sizeof(float4), (y+1));    // Bottom
     else         cB = make_float4(hC, 0.f, 0.f, 0.f);
-    
-    surf2Dread(&cL, T1read, (x-1) * sizeof(float4), y); // Left
-    surf2Dread(&cR, T1read, (x+1) * sizeof(float4), y); // Right
-    surf2Dread(&cT, T1read, x * sizeof(float4), (y-1)); // Top
-    surf2Dread(&cB, T1read, x * sizeof(float4), (y+1)); // Bottom
 
     // Outward Flux in the four directions
     surf2Dread(&cFlux, T2read, x * sizeof(float4), y);
