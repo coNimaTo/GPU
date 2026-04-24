@@ -9,7 +9,7 @@ OBJS_CPU := $(patsubst $(SRCDIR)/%.cu, $(BLDDIR)/cpu/%.o, $(SRCS))
 OBJS_GPU := $(patsubst $(SRCDIR)/%.cu, $(BLDDIR)/gpu/%.o, $(SRCS))
 
 CXXFLAGS  := -O2 -std=c++11 -I$(SRCDIR)
-NVCCFLAGS := -O2 -arch=sm_75 -rdc=true -I$(SRCDIR)
+NVCCFLAGS := -O2 -arch=sm_86 -rdc=true -I$(SRCDIR)
 
 .PHONY: cpu gpu clean
 
@@ -21,7 +21,7 @@ $(BLDDIR)/cpu/%.o: $(SRCDIR)/%.cu
 	$(CXX) $(CXXFLAGS) -x c++ -c $< -o $@
 
 gpu: $(OBJS_GPU)
-	$(NVCC) $^ -o $(TARGET)
+    $(NVCC) $(NVCCFLAGS) $^ -o $(TARGET)
 
 $(BLDDIR)/gpu/%.o: $(SRCDIR)/%.cu
 	@mkdir -p $(dir $@)
