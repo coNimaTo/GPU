@@ -13,9 +13,10 @@ terrain_frame = load_frame(f'frames/terrain_0000.bin')
 frames = [load_frame(f'frames/water_{i:04d}.bin') for i in range(0, 10000, step_size)]
 
 fig, ax = plt.subplots(1,2, figsize = (12,4))
-ax[0].imshow(terrain_frame, cmap='terrain')
-im = ax[1].imshow(frames[0], cmap='Blues')
-plt.colorbar(im, ax=ax[1])
+imt = ax[0].imshow(terrain_frame, cmap='terrain')
+im  = ax[1].imshow(frames[0], cmap='Blues', vmin=0, vmax=1)
+plt.colorbar(imt, ax=ax[0])
+plt.colorbar(im, ax=ax[1], )
 
 def update(i):
     im.set_data(frames[i])

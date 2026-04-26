@@ -37,7 +37,7 @@ __global__ void pass1Rain(
     curandStatePhilox4_32_10_t*     states,
     int                 N,
     float               rainAmount,
-    int                 rainDrops
+    float               rainDrops
 ) {
     int x = blockIdx.x * blockDim.x + threadIdx.x;
     int y = blockIdx.y * blockDim.y + threadIdx.y;
@@ -51,14 +51,14 @@ __global__ void pass1Rain(
     // Probability = rainDrops / (N*N) so expected total drops = rainDrops
     int idx = y * N + x;
     float r = curand_uniform(&states[idx]);
-    if (r < (float)rainDrops / (float)(N * N))
+    if (r < rainDrops / (float)(N * N))
         cell.y += rainAmount;   // .y == d (water height)
 
     surf2Dwrite(cell, T1write, x * sizeof(float4), y);
 }
 
 void launchPass1Rain(SimState& state, curandStatePhilox4_32_10_t* randStates,
-                     float rainAmount, int rainDrops)
+                     float rainAmount, float rainDrops)
 {
     int N = state.N;
     pass1Rain<<<grid(N), BLOCK>>>(

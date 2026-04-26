@@ -33,8 +33,9 @@ int main(int argc, char *argv[]) {
     constexpr float GRAVITY     = 9.81f;
     constexpr float DX          = 1.0f;
     constexpr int   N_STEPS     = 10000;
-    // constexpr float RAIN_AMOUNT = 1.f;
-    // constexpr int   RAIN_DROPS  = 1;
+    constexpr int   FREQ_SAVE   = 50;
+    constexpr float RAIN_AMOUNT = .1f;
+    constexpr float RAIN_DROPS  = 10.f;
 
     // ── Upload constants───────────────────────────────────────
     uploadConstants(DT, GRAVITY, DX);
@@ -79,12 +80,12 @@ int main(int argc, char *argv[]) {
 
     // ── Simulation loop ──────────────────────────────────────────────────────
     for (int step = 0; step < N_STEPS; ++step) {
-        // launchPass1Rain(state, randStates, RAIN_AMOUNT, RAIN_DROPS);
-        launchPass1Sources  (state, d_sources, sources.size());
+        launchPass1Rain(state, randStates, RAIN_AMOUNT, RAIN_DROPS);
+        // launchPass1Sources  (state, d_sources, sources.size());
         launchPass2         (state);
         launchPass3         (state);
 
-        if (step % 50 == 0) {
+        if (step % FREQ_SAVE == 0) {
             printf("Step %d\n", step);
             cudaDeviceSynchronize();
 
