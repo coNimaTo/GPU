@@ -10,7 +10,7 @@ __host__ __device__ static float lerpf(float a, float b, float t) {
     return a + t * (b - a);
 }
 
-__global__ void pass3(
+__global__ void pass6(
     cudaSurfaceObject_t             T1read,
     cudaSurfaceObject_t             T1write,
     int                             N
@@ -25,4 +25,15 @@ __global__ void pass3(
 
     cC.y *= 1 - Ke * dt
     surf2Dwrite(cC, T1write, x * sizeof(float4), y);
+}
+
+void launchPass6(SimState& state)
+{
+    int N = state.N;
+    pass6<<<grid(N), BLOCK>>>(
+        state.T1.readSurf(),
+        state.T1.writeSurf(),
+        N
+    );
+    state.T1.swap();
 }

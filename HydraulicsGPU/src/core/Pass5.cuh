@@ -10,7 +10,7 @@ __host__ __device__ static float lerpf(float a, float b, float t) {
     return a + t * (b - a);
 }
 
-__global__ void pass3(
+__global__ void pass5(
     cudaSurfaceObject_t             T1read,
     cudaSurfaceObject_t             T1write,
     cudaSurfaceObject_t             T3read, // I only need to read the new velocity
@@ -43,4 +43,16 @@ __global__ void pass3(
                         (Y-oY)); // vertical blend
 
     surf2Dwrite(cC, T1write, x * sizeof(float4), y);
+}
+
+void launchPass5(SimState& state)
+{
+    int N = state.N;
+    pass5<<<grid(N), BLOCK>>>(
+        state.T1.readSurf(),
+        state.T1.writeSurf(),
+        state.T3.readSurf(),
+        N
+    );
+    state.T1.swap();
 }

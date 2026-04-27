@@ -5,7 +5,7 @@
 #include "constants.cuh"
 #include <cuda_runtime.h>
 
-__global__ void pass3(
+__global__ void pass4(
     cudaSurfaceObject_t             T1read,
     cudaSurfaceObject_t             T1write,
     cudaSurfaceObject_t             T3read, // I only need to read the new velocity
@@ -70,5 +70,16 @@ __global__ void pass3(
 
 
     surf2Dwrite(new_cC, T1write, x * sizeof(float4), y);
+}
 
+void launchPass4(SimState& state)
+{
+    int N = state.N;
+    pass4<<<grid(N), BLOCK>>>(
+        state.T1.readSurf(),
+        state.T1.writeSurf(),
+        state.T3.readSurf(),
+        N
+    );
+    state.T1.swap();
 }

@@ -6,9 +6,13 @@
 #include "core/TerrainGen.cuh"
 #include "core/StateVector.cuh"
 #include "core/constants.cuh"
+
 #include "core/Pass1.cuh"
 #include "core/Pass2.cuh"
 #include "core/Pass3.cuh"
+#include "core/Pass4.cuh"
+#include "core/Pass5.cuh"
+#include "core/Pass6.cuh"
 
 #include "utils/Plotter.h"
 
@@ -82,8 +86,6 @@ int main(int argc, char *argv[]) {
     for (int step = 0; step < N_STEPS; ++step) {
         launchPass1Rain(state, randStates, RAIN_AMOUNT, RAIN_DROPS);
         // launchPass1Sources  (state, d_sources, sources.size());
-        launchPass2         (state);
-        launchPass3         (state);
 
         if (step % FREQ_SAVE == 0) {
             printf("Step %d\n", step);
@@ -92,13 +94,28 @@ int main(int argc, char *argv[]) {
             // Readback and save
             StateRead(state, hm, wm);
             char path[64];
-            snprintf(path, sizeof(path), "frames/terrain_%04d.bin", step);
+            snprintf(path, sizeof(path), "frames/terrain_%05d.bin", step);
             saveHeightMap(hm, path);
-            snprintf(path, sizeof(path), "frames/water_%04d.bin", step);
+            snprintf(path, sizeof(path), "frames/water_%05d.bin", step);
             saveHeightMap(wm, path);
         }
+
+        launchPass2         (state);
+        launchPass3         (state);
+        launchPass4         (state);
+        launchPass5         (state);
+        launchPass6         (state);
+
     }
+
     cudaDeviceSynchronize();
+    // Readback and save the last iteration
+    StateRead(state, hm, wm);
+    char path[64];
+    snprintf(path, sizeof(path), "frames/terrain_%05d.bin", N_STEPS);
+    saveHeightMap(hm, path);
+    snprintf(path, sizeof(path), "frames/water_%05d.bin", N_STEPS);
+    saveHeightMap(wm, path);
     
     // ── Readback ────────────────────────────────────────────────────
     StateRead(state, hm, wm);
