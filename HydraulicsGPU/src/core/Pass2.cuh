@@ -1,3 +1,4 @@
+// Calculation of outflows
 #pragma once
 #include "utils/CudaUtils.cuh"
 #include "StateVector.cuh"
