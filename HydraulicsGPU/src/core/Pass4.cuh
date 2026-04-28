@@ -19,10 +19,10 @@ __global__ void pass4(
     float4 cC, cL, cR, cT, cB;
     float dh_x, dh_y;
     surf2Dread(&cC, T1read, x * sizeof(float4), y);     // Center
-    // Check for borders, in that case -> same height -> no outflow
-    if (x <= 0) {
+    // Check for borders
+    if (x == 0) {
         surf2Dread(&cR, T1read, (x+1) * sizeof(float4), y);     // Right
-        dh_x = (cR.x - cC.x)/dx
+        dh_x = (cR.x - cC.x)/dx;
     }
     else if (x >= N-1) {
         surf2Dread(&cL, T1read, (x-1) * sizeof(float4), y);     // Left
@@ -31,22 +31,22 @@ __global__ void pass4(
     else {
         surf2Dread(&cL, T1read, (x-1) * sizeof(float4), y);     // Left
         surf2Dread(&cR, T1read, (x+1) * sizeof(float4), y);     // Right
-        dh_x = (cR.x - cL.x)/(2*dx)
+        dh_x = (cR.x - cL.x)/(2*dx);
     } 
 
     // Same with the Y-axis
-    if (y <= 0) {
+    if (y == 0) {
         surf2Dread(&cB, T1read, x * sizeof(float4), (y+1));    // Bottom
-        dh_y = (cB.x - cC.x)/dx
+        dh_y = (cB.x - cC.x)/dx;
     }
-    else if (x >= N-1) {
-        surf2Dread(&cT, T1read, x * sizeof(float4), (y+1));     // Left
+    else if (y >= N-1) {
+        surf2Dread(&cT, T1read, x * sizeof(float4), (y-1));     // Top
         dh_y = (cC.x - cT.x)/dx;
     }
     else {
         surf2Dread(&cT, T1read, x * sizeof(float4), (y-1));    // Top
         surf2Dread(&cB, T1read, x * sizeof(float4), (y+1));    // Bottom
-        dh_y = (cB.x - cT.x)/(2*dx)
+        dh_y = (cB.x - cT.x)/(2*dx);
     }
 
     // Read Velocity
@@ -54,18 +54,18 @@ __global__ void pass4(
     surf2Dread(&vC, T3read, x * sizeof(float2), y);
 
     // Calculate sediment capacity
-    float sumdh2 = dh_x*dh_x + dh_y*dh_y
-    float sin_alpha = fmaxf(sqrtf(sumdh2/(sumdh2+dx*dx)), 0.15f)
-    float Capacity = Kc * sin_alpha * sqrtf((vC.x*vC.x+vC.y*vC.y)) //* cC.y
+    float sumdh2 = dh_x*dh_x + dh_y*dh_y;
+    float sin_alpha = fmaxf(sqrtf(sumdh2/(sumdh2+dx*dx)), 0.15f);
+    float C = Kc * sin_alpha * sqrtf((vC.x*vC.x+vC.y*vC.y)); //* cC.y
 
-    float4 new_cC = cC
+    float4 new_cC = cC;
     if (C > cC.z) { // cC.z == sedimento suspendido
-        new_cC.x -= Ks * (C - cC.z)
-        new_cC.z += Ks * (C - cC.z)
+        new_cC.x -= Ks * (C - cC.z);
+        new_cC.z += Ks * (C - cC.z);
     }
     else {
-        new_cC.x -= Kd * (C - cC.z)
-        new_cC.z += Kd * (C - cC.z)
+        new_cC.x -= Kd * (C - cC.z);
+        new_cC.z += Kd * (C - cC.z);
     }
 
 

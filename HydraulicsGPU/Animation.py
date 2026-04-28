@@ -9,19 +9,24 @@ def load_frame(path):
 
 step_size = 50
 total_steps = 10000
-terrain_frame = load_frame(f'frames/terrain_0000.bin')
-frames = [load_frame(f'frames/water_{i:04d}.bin') for i in range(0, 10000, step_size)]
+t_frames = [load_frame(f'frames/terrain_{i:05d}.bin') for i in range(0, 10000, step_size)]
+w_frames = [load_frame(f'frames/water_{i:05d}.bin') for i in range(0, 10000, step_size)]
+s_frames = [load_frame(f'frames/sediment_{i:05d}.bin') for i in range(0, 10000, step_size)]
 
-fig, ax = plt.subplots(1,2, figsize = (12,4))
-imt = ax[0].imshow(terrain_frame, cmap='terrain')
-im  = ax[1].imshow(frames[0], cmap='Blues', vmin=0, vmax=1)
-plt.colorbar(imt, ax=ax[0])
-plt.colorbar(im, ax=ax[1], )
+fig, ax = plt.subplots(1,3, figsize = (12,4))
+t_im = ax[0].imshow(t_frames[0], cmap='terrain')
+w_im  = ax[1].imshow(w_frames[0], cmap='Blues', vmin=0, vmax=1)
+s_im  = ax[2].imshow(s_frames[0])
+plt.colorbar(t_im, ax=ax[0])
+plt.colorbar(w_im, ax=ax[1])
+plt.colorbar(s_im, ax=ax[2])
 
 def update(i):
-    im.set_data(frames[i])
+    t_im.set_data(t_frames[i])
+    w_im.set_data(w_frames[i])
+    s_im.set_data(s_frames[i])
     ax[1].set_title(f'Step {i*step_size}')
-    return [im]
+    return [t_im, w_im, s_im]
 
-ani = animation.FuncAnimation(fig, update, frames=len(frames), interval=300/len(frames))
+ani = animation.FuncAnimation(fig, update, frames=len(t_frames), interval=300/len(t_frames))
 plt.show()

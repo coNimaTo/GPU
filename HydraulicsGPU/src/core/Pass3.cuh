@@ -23,7 +23,7 @@ __global__ void pass3(
     // Center, Left, Right, Top, Bottom
     float4 fC, fL, fR, fT, fB;
     surf2Dread(&fC, T2read, x * sizeof(float4), y);
-    // Check for borders, in that case -> no outflow -> sink
+    // Check for borders, in that case -> no outflow -> closed system cause no outflow in borders neither
     if (x > 0)   surf2Dread(&fL, T2read, (x-1) * sizeof(float4), y);    // Left
     else         fL = make_float4(0.f, 0.f, 0.f, 0.f);
     if (x < N-1) surf2Dread(&fR, T2read, (x+1) * sizeof(float4), y);    // Right
@@ -46,8 +46,16 @@ __global__ void pass3(
     // update velocity
     float2 vC;
     float mean_h = fmaxf((cC.y + new_cC.y)/2, 1e-6f); // Preventing division by zero
-    vC.x = ((fL.y + fC.y) - (fC.x + fR.x))/(2*dx*mean_h);
-    vC.y =-((fB.z + fC.z) - (fC.w + fT.w))/(2*dx*mean_h); // down direction is positive velocity
+    // Enforce no normal velocity at the boundary (closed system)
+    if (x == 0 || x == N-1) 
+        vC.x = 0.f;
+    else 
+        vC.x = ((fL.y + fC.y) - (fC.x + fR.x))/(2*dx*mean_h);
+
+    if (x == 0 || x == N-1)
+        vC.y = 0.f;
+    else
+        vC.y =-((fB.z + fC.z) - (fC.w + fT.w))/(2*dx*mean_h); // down direction is positive velocity
 
     surf2Dwrite(vC, T3write, x * sizeof(float2), y);
 

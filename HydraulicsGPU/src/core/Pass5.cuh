@@ -28,20 +28,28 @@ __global__ void pass5(
 
     // Look from where should have come the sediment
     float X = (float)x - vC.x * dt;
-    float Y = (float)x - vC.y * dt;
+    float Y = (float)y - vC.y * dt;
+    // Clamp if out of bounds
+    X = fminf(fmaxf(X, 0.0f), (float)(N - 1.001f));
+    Y = fminf(fmaxf(Y, 0.0f), (float)(N - 1.001f));
 
-    int oX = floor(X);
-    int oY = floor(Y);
+    int oX = (int)floor(X);
+    int oY = (int)floor(Y);
+
     float4 cTL, cTR, cBL, cBR;
-    surf2Dread(&cTL, T1read, oX     * sizeof(float4), xY);
-    surf2Dread(&cTR, T1read, (oX+1) * sizeof(float4), xY);
-    surf2Dread(&cBL, T1read, oX     * sizeof(float4), (xY+1));
-    surf2Dread(&cBR, T1read, (oX+1) * sizeof(float4), (xY+1));
-    // Bilinear interpolation
-    cC.z = lerpf(lerpf(cTL.z, cTR.z, (X-oX)),   //top horizontal
-                        lerpf(cBL.z, cBR.z, (X-oX)), // bottom
-                        (Y-oY)); // vertical blend
+    surf2Dread(&cTL, T1read, oX     * sizeof(float4), oY);
+    surf2Dread(&cTR, T1read, (oX+1) * sizeof(float4), oY);
+    surf2Dread(&cBL, T1read, oX     * sizeof(float4), (oY+1));
+    surf2Dread(&cBR, T1read, (oX+1) * sizeof(float4), (oY+1));
 
+    // Bilinear interpolation
+    float fx = X - oX;
+    float fy = Y - oY;
+    cC.z = lerpf(lerpf(cTL.z, cTR.z, fx),   //top horizontal
+                 lerpf(cBL.z, cBR.z, fx),   // bottom
+                 fy);                       // vertical blend
+    
+    
     surf2Dwrite(cC, T1write, x * sizeof(float4), y);
 }
 

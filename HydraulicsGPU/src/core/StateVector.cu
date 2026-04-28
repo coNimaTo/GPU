@@ -38,7 +38,7 @@ void StateUpload(SimState& state, const HeightMap& hm) {
 }
 
 // Readback: T1.b (device) → HeightMap (host)
-void StateRead(const SimState& state, HeightMap& hm, HeightMap& wm) {
+void StateRead(const SimState& state, HeightMap& hm, HeightMap& wm, HeightMap& sm) {
     int N = hm.size;
 
     std::vector<float4> tmp(N * N);
@@ -56,6 +56,7 @@ void StateRead(const SimState& state, HeightMap& hm, HeightMap& wm) {
     for (int i = 0; i < N * N; ++i){
         hm.data[i] = tmp[i].x;          // .x == b (terrain height)
         wm.data[i] = tmp[i].y;          // .y == w (water amount)
+        sm.data[i] = tmp[i].z;          // .z == s (sediment amount)
     }
         
 }

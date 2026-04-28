@@ -5,11 +5,6 @@
 #include "constants.cuh"
 #include <cuda_runtime.h>
 
-// Interpolation function between (0,a)<->(1,b)
-__host__ __device__ static float lerpf(float a, float b, float t) {
-    return a + t * (b - a);
-}
-
 __global__ void pass6(
     cudaSurfaceObject_t             T1read,
     cudaSurfaceObject_t             T1write,
@@ -23,7 +18,7 @@ __global__ void pass6(
     float4 cC;
     surf2Dread(&cC, T1read, x * sizeof(float4), y);
 
-    cC.y *= 1 - Ke * dt
+    cC.y *= 1 - Ke * dt;
     surf2Dwrite(cC, T1write, x * sizeof(float4), y);
 }
 

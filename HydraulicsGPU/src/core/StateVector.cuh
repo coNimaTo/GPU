@@ -80,4 +80,4 @@ struct SimState {
 // Upload and initialize: HeightMap (host) → T1 (device)
 void StateUpload(SimState& state, const HeightMap& hm);
 // Readback: T1.b (device) → HeightMap (host)
-void StateRead(const SimState& state, HeightMap& hm, HeightMap& wm);
+void StateRead(const SimState& state, HeightMap& hm, HeightMap& wm, HeightMap& sm);

@@ -28,6 +28,16 @@ static void saveHeightMap(const HeightMap& hm, const char* path) {
             hm.size * hm.size * sizeof(float));
 }
 
+static void saveState(const HeightMap& hm, const HeightMap& wm, const HeightMap& sm, int step) {
+    char path[64];
+    snprintf(path, sizeof(path), "frames/terrain_%05d.bin", step);
+    saveHeightMap(hm, path);
+    snprintf(path, sizeof(path), "frames/water_%05d.bin", step);
+    saveHeightMap(wm, path);
+    snprintf(path, sizeof(path), "frames/sediment_%05d.bin", step);
+    saveHeightMap(sm, path);
+}
+
 #define N 129
 
 int main(int argc, char *argv[]) {
@@ -36,21 +46,28 @@ int main(int argc, char *argv[]) {
     constexpr float DT          = 0.01f;
     constexpr float GRAVITY     = 9.81f;
     constexpr float DX          = 1.0f;
+    constexpr float KC          = 0.05f;
+    constexpr float KS          = 0.02f;
+    constexpr float KD          = 0.02f;
+    constexpr float KE          = 0.01f;
+
+
     constexpr int   N_STEPS     = 10000;
     constexpr int   FREQ_SAVE   = 50;
-    constexpr float RAIN_AMOUNT = .1f;
-    constexpr float RAIN_DROPS  = 10.f;
+    constexpr float RAIN_AMOUNT = 0.1f;
+    constexpr float RAIN_DROPS  = 0.f;
 
     // ── Upload constants───────────────────────────────────────
-    uploadConstants(DT, GRAVITY, DX);
+    uploadConstants(DT, GRAVITY, DX, KC, KS, KD, KE);
 
     // ── Init RNG ─────────────────────────────────────────────────────────────
     curandStatePhilox4_32_10_t* randStates = allocRandStates(N, 42UL);
 
     // ── Init heightmap ───────────────────────────────────────────────────────
-    HeightMap hm, wm;
+    HeightMap hm, wm, sm;
     hm.allocate(N);
     wm.allocate(N);
+    sm.allocate(N);
 
     int algorithm = 0;
     if (argc > 1) {
@@ -78,26 +95,22 @@ int main(int argc, char *argv[]) {
 
     // Water Sources
     std::vector<WaterSource> sources = {
-        {10, 10, .6f}
+        {10, 10, .2f}
     };
     WaterSource* d_sources = uploadSources(sources);
 
     // ── Simulation loop ──────────────────────────────────────────────────────
     for (int step = 0; step < N_STEPS; ++step) {
-        launchPass1Rain(state, randStates, RAIN_AMOUNT, RAIN_DROPS);
-        // launchPass1Sources  (state, d_sources, sources.size());
+        // launchPass1Rain(state, randStates, RAIN_AMOUNT, RAIN_DROPS);
+        launchPass1Sources  (state, d_sources, sources.size());
 
         if (step % FREQ_SAVE == 0) {
             printf("Step %d\n", step);
             cudaDeviceSynchronize();
 
             // Readback and save
-            StateRead(state, hm, wm);
-            char path[64];
-            snprintf(path, sizeof(path), "frames/terrain_%05d.bin", step);
-            saveHeightMap(hm, path);
-            snprintf(path, sizeof(path), "frames/water_%05d.bin", step);
-            saveHeightMap(wm, path);
+            StateRead(state, hm, wm, sm);
+            saveState(hm,wm,sm,step);
         }
 
         launchPass2         (state);
@@ -110,15 +123,10 @@ int main(int argc, char *argv[]) {
 
     cudaDeviceSynchronize();
     // Readback and save the last iteration
-    StateRead(state, hm, wm);
-    char path[64];
-    snprintf(path, sizeof(path), "frames/terrain_%05d.bin", N_STEPS);
-    saveHeightMap(hm, path);
-    snprintf(path, sizeof(path), "frames/water_%05d.bin", N_STEPS);
-    saveHeightMap(wm, path);
+    StateRead(state, hm, wm, sm);
+    saveState(hm,wm,sm,N_STEPS);
     
     // ── Readback ────────────────────────────────────────────────────
-    StateRead(state, hm, wm);
     hmap_print_ascii(hm, 8);
     
     // ── Cleanup ──────────────────────────────────────────────────────────────
