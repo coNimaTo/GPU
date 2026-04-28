@@ -46,9 +46,9 @@ int main(int argc, char *argv[]) {
     constexpr float DT          = 0.01f;
     constexpr float GRAVITY     = 9.81f;
     constexpr float DX          = 1.0f;
-    constexpr float KC          = 0.05f;
+    constexpr float KC          = 0.01f;
     constexpr float KS          = 0.02f;
-    constexpr float KD          = 0.02f;
+    constexpr float KD          = 0.03f;
     constexpr float KE          = 0.01f;
 
 

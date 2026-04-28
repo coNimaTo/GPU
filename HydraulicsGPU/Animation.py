@@ -14,12 +14,14 @@ w_frames = [load_frame(f'frames/water_{i:05d}.bin') for i in range(0, 10000, ste
 s_frames = [load_frame(f'frames/sediment_{i:05d}.bin') for i in range(0, 10000, step_size)]
 
 fig, ax = plt.subplots(1,3, figsize = (12,4))
-t_im = ax[0].imshow(t_frames[0], cmap='terrain')
+t_im = ax[0].imshow(t_frames[0], cmap='terrain', vmin=-1, vmax=1)
 w_im  = ax[1].imshow(w_frames[0], cmap='Blues', vmin=0, vmax=1)
-s_im  = ax[2].imshow(s_frames[0])
+s_im  = ax[2].imshow(s_frames[0], vmin=0, vmax=.025)
 plt.colorbar(t_im, ax=ax[0])
 plt.colorbar(w_im, ax=ax[1])
 plt.colorbar(s_im, ax=ax[2])
+
+print(t_frames[0].max(),t_frames[0].min())
 
 def update(i):
     t_im.set_data(t_frames[i])
