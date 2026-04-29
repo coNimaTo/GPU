@@ -85,7 +85,7 @@ int main(int argc, char *argv[]) {
             terrain_perlin(hm, 6, 0.5f, 4.0f, 42);
             break;
     }
-
+    hm.normalize();
     printf("HeightMap created");
 
     // ── Load heightmap to the State ───────────────────────────────────────────────────────
@@ -101,8 +101,8 @@ int main(int argc, char *argv[]) {
 
     // ── Simulation loop ──────────────────────────────────────────────────────
     for (int step = 0; step < N_STEPS; ++step) {
-        // launchPass1Rain(state, randStates, RAIN_AMOUNT, RAIN_DROPS);
-        launchPass1Sources  (state, d_sources, sources.size());
+        launchPass1Rain(state, randStates, RAIN_AMOUNT, RAIN_DROPS);
+        // launchPass1Sources  (state, d_sources, sources.size());
 
         if (step % FREQ_SAVE == 0) {
             printf("Step %d\n", step);
@@ -134,5 +134,6 @@ int main(int argc, char *argv[]) {
     state.release();
     hm.release();
     wm.release();
+    sm.release();
     return 0;
 }
