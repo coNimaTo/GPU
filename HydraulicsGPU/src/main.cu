@@ -28,6 +28,15 @@ static void saveHeightMap(const HeightMap& hm, const char* path) {
             hm.size * hm.size * sizeof(float));
 }
 
+static void loadHeightMap(HeightMap& hm, const char* path) {
+    std::ifstream f(path, std::ios::binary);
+    if (!f) throw std::runtime_error("Could not open input file");
+    int N;
+    f.read(reinterpret_cast<char*>(&N), sizeof(int));
+    hm.allocate(N);
+    f.read(reinterpret_cast<char*>(hm.data), N * N * sizeof(float));
+}
+
 static void saveState(const HeightMap& hm, const HeightMap& wm, const HeightMap& sm, int step) {
     char path[64];
     snprintf(path, sizeof(path), "frames/terrain_%05d.bin", step);
@@ -38,12 +47,12 @@ static void saveState(const HeightMap& hm, const HeightMap& wm, const HeightMap&
     saveHeightMap(sm, path);
 }
 
-#define N 129
+#define N 257
 
 int main(int argc, char *argv[]) {
 
     // ── Simulation parameters ────────────────────────────────────────────────
-    constexpr float DT          = 0.01f;
+    constexpr float DT          = 0.001f;
     constexpr float GRAVITY     = 9.81f;
     constexpr float DX          = 1.0f;
     constexpr float KC          = 0.01f;
@@ -52,10 +61,10 @@ int main(int argc, char *argv[]) {
     constexpr float KE          = 0.01f;
 
 
-    constexpr int   N_STEPS     = 10000;
-    constexpr int   FREQ_SAVE   = 50;
+    constexpr int   N_STEPS     = 5000;
+    constexpr int   FREQ_SAVE   = 10;
     constexpr float RAIN_AMOUNT = 0.1f;
-    constexpr float RAIN_DROPS  = 0.f;
+    constexpr float RAIN_DROPS  = 500.0f;
 
     // ── Upload constants───────────────────────────────────────
     uploadConstants(DT, GRAVITY, DX, KC, KS, KD, KE);
@@ -69,24 +78,30 @@ int main(int argc, char *argv[]) {
     wm.allocate(N);
     sm.allocate(N);
 
-    int algorithm = 0;
-    if (argc > 1) {
-        algorithm = atoi(argv[1]);
-    }
+    // int algorithm = 0;
+    // if (argc > 1) {
+    //     algorithm = atoi(argv[1]);
+    // }
 
-    switch (algorithm) {
-        case 1:
-            terrain_diamond_square(hm, 1.0f, 0.6f, 42);
-            break;
-        case 2:
-            terrain_perlin(hm, 6, 0.5f, 4.0f, 42);
-            break;
-        default:
-            terrain_perlin(hm, 6, 0.5f, 4.0f, 42);
-            break;
-    }
-    hm.normalize();
-    printf("HeightMap created");
+    // switch (algorithm) {
+    //     case 1:
+    //         terrain_diamond_square(hm, 1.0f, 0.6f, 42);
+    //         break;
+    //     case 2:
+    //         terrain_perlin(hm, 6, 0.5f, 4.0f, 42);
+    //         break;
+    //     default:
+    //         terrain_perlin(hm, 6, 0.5f, 4.0f, 42);
+    //         break;
+    // }
+    // printf("HeightMap created");
+    // printf("HeightMap normalization start");
+    // hm.normalize();
+    // printf("HeightMap normalized");
+
+    char path[64];
+    snprintf(path, sizeof(path), "TerrainTest/plane_%d.bin", N);
+    loadHeightMap(hm, path);
 
     // ── Load heightmap to the State ───────────────────────────────────────────────────────
     SimState state;

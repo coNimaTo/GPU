@@ -49,10 +49,10 @@ __global__ void pass1Rain(
     surf2Dread(&cell, T1read, x * sizeof(float4), y);
 
     // Each thread probabilistically adds water
-    // Probability = rainDrops / (N*N) so expected total drops = rainDrops
+    // Probability = dt * rainDrops / (N*N) so expected total drops per second = rainDrops
     int idx = y * N + x;
     float r = curand_uniform(&states[idx]);
-    if (r < rainDrops / (float)(N * N))
+    if (r < dt * rainDrops / (float)(N * N))
         cell.y += rainAmount;   // .y == d (water height)
 
     surf2Dwrite(cell, T1write, x * sizeof(float4), y);

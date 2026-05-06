@@ -60,14 +60,14 @@ __global__ void pass4(
 
     float4 new_cC = cC;
     if (C > cC.z) { // cC.z == sedimento suspendido
-        float dSediment = fmaxf(C - cC.z, cC.x); // Limit for erosion (something like bedrock)
-        new_cC.x -= Ks * dSediment;
-        new_cC.z += Ks * dSediment;
+        float dSediment = fminf(C - cC.z, cC.x); // Limit for erosion (something like bedrock)
+        new_cC.x -= dt * Ks * dSediment;
+        new_cC.z += dt * Ks * dSediment;
     }
     else {
-        float dSediment = fmaxf(cC.z - C, cC.z);
-        new_cC.x += Kd * dSediment;
-        new_cC.z -= Kd * dSediment;
+        float dSediment = fminf(cC.z - C, cC.z); // Limit for deposition
+        new_cC.x += dt * Kd * dSediment;
+        new_cC.z -= dt * Kd * dSediment;
     }
 
 
