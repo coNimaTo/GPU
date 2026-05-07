@@ -28,15 +28,6 @@ static void saveHeightMap(const HeightMap& hm, const char* path) {
             hm.size * hm.size * sizeof(float));
 }
 
-static void loadHeightMap(HeightMap& hm, const char* path) {
-    std::ifstream f(path, std::ios::binary);
-    if (!f) throw std::runtime_error("Could not open input file");
-    int N;
-    f.read(reinterpret_cast<char*>(&N), sizeof(int));
-    hm.allocate(N);
-    f.read(reinterpret_cast<char*>(hm.data), N * N * sizeof(float));
-}
-
 static void saveState(const HeightMap& hm, const HeightMap& wm, const HeightMap& sm, int step) {
     char path[64];
     snprintf(path, sizeof(path), "frames/terrain_%05d.bin", step);
@@ -47,24 +38,25 @@ static void saveState(const HeightMap& hm, const HeightMap& wm, const HeightMap&
     saveHeightMap(sm, path);
 }
 
-#define N 257
+#define N 65
 
 int main(int argc, char *argv[]) {
+    printf("Main Started\n");
 
     // ── Simulation parameters ────────────────────────────────────────────────
-    constexpr float DT          = 0.001f;
+    constexpr float DT          = 0.01f;
     constexpr float GRAVITY     = 9.81f;
     constexpr float DX          = 1.0f;
-    constexpr float KC          = 0.01f;
-    constexpr float KS          = 0.02f;
-    constexpr float KD          = 0.03f;
-    constexpr float KE          = 0.01f;
+    constexpr float KC          = 0.05f;
+    constexpr float KS          = 0.05f;
+    constexpr float KD          = 0.05f;
+    constexpr float KE          = 0.1f;
 
 
     constexpr int   N_STEPS     = 5000;
     constexpr int   FREQ_SAVE   = 10;
-    constexpr float RAIN_AMOUNT = 0.1f;
-    constexpr float RAIN_DROPS  = 500.0f;
+    constexpr float RAIN_AMOUNT = 0.4f;
+    constexpr float RAIN_DROPS  = 50.0f;
 
     // ── Upload constants───────────────────────────────────────
     uploadConstants(DT, GRAVITY, DX, KC, KS, KD, KE);
@@ -78,30 +70,41 @@ int main(int argc, char *argv[]) {
     wm.allocate(N);
     sm.allocate(N);
 
-    // int algorithm = 0;
-    // if (argc > 1) {
-    //     algorithm = atoi(argv[1]);
-    // }
+    int algorithm = 0;
+    if (argc > 1) {
+        algorithm = atoi(argv[1]);
+    }
+    printf("algorithm : %d\n", algorithm);
 
-    // switch (algorithm) {
-    //     case 1:
-    //         terrain_diamond_square(hm, 1.0f, 0.6f, 42);
-    //         break;
-    //     case 2:
-    //         terrain_perlin(hm, 6, 0.5f, 4.0f, 42);
-    //         break;
-    //     default:
-    //         terrain_perlin(hm, 6, 0.5f, 4.0f, 42);
-    //         break;
-    // }
-    // printf("HeightMap created");
-    // printf("HeightMap normalization start");
-    // hm.normalize();
-    // printf("HeightMap normalized");
-
-    char path[64];
-    snprintf(path, sizeof(path), "TerrainTest/plane_%d.bin", N);
-    loadHeightMap(hm, path);
+    switch (algorithm) {
+        case 1:
+            terrain_diamond_square(hm, 1.0f, 0.6f, 42);
+            printf("diamond terrain created");
+            break;
+        case 2:
+            terrain_perlin(hm, 6, 0.5f, 4.0f, 42);
+            printf("perlin terrain created");
+            break;
+        case 3:
+            terrain_plane(hm,1);
+            printf("plane terrain created");
+            break;
+        case 4:
+            terrain_pyramid(hm);
+            printf("inverted pyramid terrain created");
+            break;
+        case 5:
+            terrain_V(hm);
+            printf("V terrain created");
+            break;
+        default:
+            terrain_perlin(hm, 6, 0.5f, 4.0f, 42);
+            printf("perlin (default) terrain created");
+            break;
+    }
+    printf("HeightMap created\n");
+    hm.normalize();
+    printf("HeightMap normalized\n");
 
     // ── Load heightmap to the State ───────────────────────────────────────────────────────
     SimState state;
@@ -109,18 +112,23 @@ int main(int argc, char *argv[]) {
     StateUpload(state, hm);
 
     // Water Sources
+    float wlvl = .005;
     std::vector<WaterSource> sources = {
-        {10, 10, .2f}
+                                  {2, 4, wlvl},
+                     {1, 5, wlvl},{2, 5, wlvl},{3, 5, wlvl},
+        {0, 4, wlvl},{1, 6, wlvl},{2, 6, wlvl},{3, 6, wlvl},{4, 6, wlvl},
+                     {1, 7, wlvl},{2, 7, wlvl},{3, 7, wlvl},
+                                  {2, 8, wlvl},
     };
     WaterSource* d_sources = uploadSources(sources);
 
     // ── Simulation loop ──────────────────────────────────────────────────────
     for (int step = 0; step < N_STEPS; ++step) {
         launchPass1Rain(state, randStates, RAIN_AMOUNT, RAIN_DROPS);
-        // launchPass1Sources  (state, d_sources, sources.size());
+        launchPass1Sources(state, d_sources, sources.size());
 
         if (step % FREQ_SAVE == 0) {
-            printf("Step %d\n", step);
+            // printf("Step %d\n", step);
             cudaDeviceSynchronize();
 
             // Readback and save
@@ -142,7 +150,7 @@ int main(int argc, char *argv[]) {
     saveState(hm,wm,sm,N_STEPS);
     
     // ── Readback ────────────────────────────────────────────────────
-    hmap_print_ascii(hm, 8);
+    hmap_print_ascii(hm, 1);
     
     // ── Cleanup ──────────────────────────────────────────────────────────────
     cudaFree(randStates);

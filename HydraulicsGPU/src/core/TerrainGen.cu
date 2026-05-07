@@ -141,3 +141,56 @@ void terrain_diamond_square(HeightMap &hm, float initial_scale, float decay, uns
                 ds_square(hm, x, y, half, scale);
     }
 }
+
+
+// ------------------------------------------------
+// Test Terrains
+// ------------------------------------------------
+
+__global__ // Classic one-task-many-times kernel 
+void kernel_plane(HeightMap hm, float c) {
+    int i = blockIdx.y * blockDim.y + threadIdx.y;
+    int j = blockIdx.x * blockDim.x + threadIdx.x;
+    if (i >= hm.size || j >= hm.size) return;
+    hm(i,j) = c;
+}
+void terrain_plane(HeightMap &hm, float c) {
+    // bloques, threads and kernel launch
+    dim3 threads(16, 16);
+    dim3 blocks((hm.size + 15) / 16, (hm.size + 15) / 16);
+
+    kernel_plane<<<blocks, threads>>>(hm, c);
+    CUDA_CHECK(cudaDeviceSynchronize());
+}
+
+__global__ // Classic one-task-many-times kernel 
+void kernel_pyramid(HeightMap hm) {
+    int i = blockIdx.y * blockDim.y + threadIdx.y;
+    int j = blockIdx.x * blockDim.x + threadIdx.x;
+    if (i >= hm.size || j >= hm.size) return;
+    hm(i,j) = (float)(abs(i-hm.size/2)+abs(j-hm.size/2))/hm.size;
+}
+void terrain_pyramid(HeightMap &hm) {
+    // bloques, threads and kernel launch
+    dim3 threads(16, 16);
+    dim3 blocks((hm.size + 15) / 16, (hm.size + 15) / 16);
+
+    kernel_pyramid<<<blocks, threads>>>(hm);
+    CUDA_CHECK(cudaDeviceSynchronize());
+}
+
+__global__ // Classic one-task-many-times kernel 
+void kernel_V(HeightMap hm) {
+    int i = blockIdx.y * blockDim.y + threadIdx.y;
+    int j = blockIdx.x * blockDim.x + threadIdx.x;
+    if (i >= hm.size || j >= hm.size) return;
+    hm(i,j) = 2.*(float)abs(i-hm.size/2)/hm.size;
+}
+void terrain_V(HeightMap &hm) {
+    // bloques, threads and kernel launch
+    dim3 threads(16, 16);
+    dim3 blocks((hm.size + 15) / 16, (hm.size + 15) / 16);
+
+    kernel_V<<<blocks, threads>>>(hm);
+    CUDA_CHECK(cudaDeviceSynchronize());
+}
