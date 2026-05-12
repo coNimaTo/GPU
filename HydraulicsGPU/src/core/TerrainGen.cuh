@@ -11,3 +11,4 @@ void terrain_diamond_square(HeightMap &hm, float initial_scale, float decay,
 void terrain_plane(HeightMap &hm, float c);
 void terrain_pyramid(HeightMap &hm);
 void terrain_V(HeightMap &hm);
+void terrain_cone(HeightMap &hm);

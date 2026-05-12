@@ -56,7 +56,7 @@ __global__ void pass4(
     // Calculate sediment capacity
     float sumdh2 = dh_x*dh_x + dh_y*dh_y;
     float sin_alpha = fmaxf(sqrtf(sumdh2/(sumdh2+dx*dx)), 0.01f);
-    float C = Kc * sin_alpha * sqrtf((vC.x*vC.x+vC.y*vC.y)); //* cC.y
+    float C = Kc * sin_alpha * sqrtf((vC.x*vC.x+vC.y*vC.y)) * cC.y;
 
     float4 new_cC = cC;
     if (C > cC.z) { // cC.z == sedimento suspendido

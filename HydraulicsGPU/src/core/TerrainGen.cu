@@ -194,3 +194,21 @@ void terrain_V(HeightMap &hm) {
     kernel_V<<<blocks, threads>>>(hm);
     CUDA_CHECK(cudaDeviceSynchronize());
 }
+
+__global__ // Classic one-task-many-times kernel 
+void kernel_cone(HeightMap hm) {
+    int i = blockIdx.y * blockDim.y + threadIdx.y;
+    int j = blockIdx.x * blockDim.x + threadIdx.x;
+    if (i >= hm.size || j >= hm.size) return;
+    float x = (float)(i-hm.size/2)/hm.size;
+    float y = (float)(j-hm.size/2)/hm.size;
+    hm(i,j) = sqrtf(x*x+y*y) / 1.41;
+}
+void terrain_cone(HeightMap &hm) {
+    // bloques, threads and kernel launch
+    dim3 threads(16, 16);
+    dim3 blocks((hm.size + 15) / 16, (hm.size + 15) / 16);
+
+    kernel_cone<<<blocks, threads>>>(hm);
+    CUDA_CHECK(cudaDeviceSynchronize());
+}

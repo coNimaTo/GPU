@@ -1,10 +1,13 @@
 #include <cuda_runtime.h>
 #include <fstream>
 #include <stdexcept>
+#include <iostream>
+#include <chrono>
 
 #include "core/HeightMap.cuh"
 #include "core/TerrainGen.cuh"
 #include "core/StateVector.cuh"
+#include "utils/config.h"
 #include "core/constants.cuh"
 
 #include "core/Pass1.cuh"
@@ -38,28 +41,26 @@ static void saveState(const HeightMap& hm, const HeightMap& wm, const HeightMap&
     saveHeightMap(sm, path);
 }
 
-#define N 65
+// #define N 65
 
 int main(int argc, char *argv[]) {
     printf("Main Started\n");
 
-    // ── Simulation parameters ────────────────────────────────────────────────
-    constexpr float DT          = 0.01f;
-    constexpr float GRAVITY     = 9.81f;
-    constexpr float DX          = 1.0f;
-    constexpr float KC          = 0.05f;
-    constexpr float KS          = 0.05f;
-    constexpr float KD          = 0.05f;
-    constexpr float KE          = 0.1f;
+    const char* configPath = (argc > 2) ? argv[2] : "config.ini";
+    Config cfg = Config::load(configPath);
+    cfg.print();
 
+    uploadConstants(cfg.DT, cfg.GRAVITY, cfg.DX, cfg.KC, cfg.KS, cfg.KD, cfg.KE);
 
-    constexpr int   N_STEPS     = 5000;
-    constexpr int   FREQ_SAVE   = 10;
-    constexpr float RAIN_AMOUNT = 0.4f;
-    constexpr float RAIN_DROPS  = 50.0f;
+    int N = cfg.N;
+    if (argc > 1) {
+        N = atoi(argv[1]);
 
-    // ── Upload constants───────────────────────────────────────
-    uploadConstants(DT, GRAVITY, DX, KC, KS, KD, KE);
+        if (N <= 0) {
+            fprintf(stderr, "Error: N must be > 0\n");
+            return 1;
+        }
+    }
 
     // ── Init RNG ─────────────────────────────────────────────────────────────
     curandStatePhilox4_32_10_t* randStates = allocRandStates(N, 42UL);
@@ -70,41 +71,39 @@ int main(int argc, char *argv[]) {
     wm.allocate(N);
     sm.allocate(N);
 
-    int algorithm = 0;
-    if (argc > 1) {
-        algorithm = atoi(argv[1]);
-    }
-    printf("algorithm : %d\n", algorithm);
-
-    switch (algorithm) {
+    switch (cfg.algorithm) {
         case 1:
             terrain_diamond_square(hm, 1.0f, 0.6f, 42);
-            printf("diamond terrain created");
+            printf("diamond terrain created\n");
             break;
         case 2:
             terrain_perlin(hm, 6, 0.5f, 4.0f, 42);
-            printf("perlin terrain created");
+            printf("perlin terrain created\n");
             break;
         case 3:
             terrain_plane(hm,1);
-            printf("plane terrain created");
+            printf("plane terrain created\n");
             break;
         case 4:
             terrain_pyramid(hm);
-            printf("inverted pyramid terrain created");
+            printf("inverted pyramid terrain created\n");
             break;
         case 5:
             terrain_V(hm);
-            printf("V terrain created");
+            printf("V terrain created\n");
+            break;
+        case 6:
+            terrain_cone(hm);
+            printf("cone terrain created\n");
             break;
         default:
             terrain_perlin(hm, 6, 0.5f, 4.0f, 42);
-            printf("perlin (default) terrain created");
+            printf("perlin (default) terrain created\n");
             break;
     }
-    printf("HeightMap created\n");
+    // printf("HeightMap created\n");
     hm.normalize();
-    printf("HeightMap normalized\n");
+    // printf("HeightMap normalized\n");
 
     // ── Load heightmap to the State ───────────────────────────────────────────────────────
     SimState state;
@@ -112,7 +111,7 @@ int main(int argc, char *argv[]) {
     StateUpload(state, hm);
 
     // Water Sources
-    float wlvl = .005;
+    float wlvl = cfg.WATER_LEVEL;
     std::vector<WaterSource> sources = {
                                   {2, 4, wlvl},
                      {1, 5, wlvl},{2, 5, wlvl},{3, 5, wlvl},
@@ -123,11 +122,17 @@ int main(int argc, char *argv[]) {
     WaterSource* d_sources = uploadSources(sources);
 
     // ── Simulation loop ──────────────────────────────────────────────────────
-    for (int step = 0; step < N_STEPS; ++step) {
-        launchPass1Rain(state, randStates, RAIN_AMOUNT, RAIN_DROPS);
-        launchPass1Sources(state, d_sources, sources.size());
+    auto start = std::chrono::high_resolution_clock::now();
+    for (int step = 0; step < cfg.N_STEPS; ++step) {
+        
+        // rain and sources stop early so water can evaporate
+        if (step < cfg.N_STEPS-cfg.RAIN_STOP) {
+            launchPass1Rain(state, randStates, cfg.RAIN_AMOUNT, cfg.RAIN_DROPS);
+            // launchPass1Sources(state, d_sources, sources.size());
+        }
+            
 
-        if (step % FREQ_SAVE == 0) {
+        if (step % cfg.FREQ_SAVE == 0) {
             // printf("Step %d\n", step);
             cudaDeviceSynchronize();
 
@@ -138,6 +143,9 @@ int main(int argc, char *argv[]) {
 
         launchPass2         (state);
         launchPass3         (state);
+        
+        // launchPass6         (state);
+
         launchPass4         (state);
         launchPass5         (state);
         launchPass6         (state);
@@ -145,9 +153,16 @@ int main(int argc, char *argv[]) {
     }
 
     cudaDeviceSynchronize();
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed = end - start;
+
+    std::cout << "Elapsed time: "
+              << elapsed.count()
+              << " seconds\n";
+
     // Readback and save the last iteration
     StateRead(state, hm, wm, sm);
-    saveState(hm,wm,sm,N_STEPS);
+    saveState(hm,wm,sm,cfg.N_STEPS);
     
     // ── Readback ────────────────────────────────────────────────────
     hmap_print_ascii(hm, 1);

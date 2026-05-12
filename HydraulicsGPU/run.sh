@@ -19,6 +19,11 @@ module load cuda/12.2.1-gcc-11.1.0-fvljoe5
 
 echo DeviceID: $SGE_GPU
 
+# Read second argument from qsub
+ARG1=$1
+ARG2=$2
+echo "Running with argument: $ARG1,$ARG2"
+
 #ejecutar binario con sus respectivos argumentos
-./terrain 4
+./terrain $ARG1 $ARG2
 #compute-sanitizer --tool memcheck ./terrain
