@@ -14,7 +14,7 @@ struct SimLayer {
     //    con la ventaja de que usa unidades de hardware hechas para esto
     cudaArray_t          arr[2]  = {};
     cudaSurfaceObject_t  surf[2] = {};
-    cudaTextureObject_t  tex[2]  = {};
+    cudaTextureObject_t  tex[2]  = {}; // Esto al final no lo use
 
     // bit para flipear que dato es el actual
     int cur = 0;

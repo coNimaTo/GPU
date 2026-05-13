@@ -34,11 +34,11 @@ static void saveHeightMap(const HeightMap& hm, const char* path) {
 
 static void saveState(const HeightMap& hm, const HeightMap& wm, const HeightMap& sm, int step) {
     char path[64];
-    snprintf(path, sizeof(path), "frames/terrain_%05d.bin", step);
+    snprintf(path, sizeof(path), "frames/terrain_%010d.bin", step);
     saveHeightMap(hm, path);
-    snprintf(path, sizeof(path), "frames/water_%05d.bin", step);
+    snprintf(path, sizeof(path), "frames/water_%010d.bin", step);
     saveHeightMap(wm, path);
-    snprintf(path, sizeof(path), "frames/sediment_%05d.bin", step);
+    snprintf(path, sizeof(path), "frames/sediment_%010d.bin", step);
     saveHeightMap(sm, path);
 }
 
@@ -124,9 +124,9 @@ int main(int argc, char *argv[]) {
     WaterSource* d_sources = uploadSources(sources);
 
     // ── Simulation loop ──────────────────────────────────────────────────────
+    resetCFLFlag();
     auto start = std::chrono::high_resolution_clock::now();
     for (int step = 0; step < cfg.N_STEPS; ++step) {
-        resetCFLFlag();
         // rain and sources stop early so water can evaporate
         if (step < cfg.N_STEPS-cfg.RAIN_STOP) {
             launchPass1Rain(state, randStates, cfg.RAIN_AMOUNT, cfg.RAIN_DROPS);
@@ -138,6 +138,7 @@ int main(int argc, char *argv[]) {
             cudaDeviceSynchronize();
             if (checkCFLFlag())
                 printf("Warning: CFL violated at step %d\n", step);
+            resetCFLFlag();
 
             // Readback and save
             StateRead(state, hm, wm, sm);
