@@ -9,6 +9,7 @@
 #include "core/StateVector.cuh"
 #include "utils/config.h"
 #include "core/constants.cuh"
+#include "core/CFL.cuh"
 
 #include "core/Pass1.cuh"
 #include "core/Pass2.cuh"
@@ -47,12 +48,13 @@ int main(int argc, char *argv[]) {
     printf("Main Started\n");
 
     const char* configPath = (argc > 2) ? argv[2] : "config.ini";
+    printf("%s\n", configPath);
     Config cfg = Config::load(configPath);
     cfg.print();
 
     uploadConstants(cfg.DT, cfg.GRAVITY, cfg.DX, cfg.KC, cfg.KS, cfg.KD, cfg.KE);
 
-    int N = cfg.N;
+    int N = 65;
     if (argc > 1) {
         N = atoi(argv[1]);
 
@@ -124,17 +126,18 @@ int main(int argc, char *argv[]) {
     // ── Simulation loop ──────────────────────────────────────────────────────
     auto start = std::chrono::high_resolution_clock::now();
     for (int step = 0; step < cfg.N_STEPS; ++step) {
-        
+        resetCFLFlag();
         // rain and sources stop early so water can evaporate
         if (step < cfg.N_STEPS-cfg.RAIN_STOP) {
             launchPass1Rain(state, randStates, cfg.RAIN_AMOUNT, cfg.RAIN_DROPS);
             // launchPass1Sources(state, d_sources, sources.size());
         }
-            
 
         if (step % cfg.FREQ_SAVE == 0) {
             // printf("Step %d\n", step);
             cudaDeviceSynchronize();
+            if (checkCFLFlag())
+                printf("Warning: CFL violated at step %d\n", step);
 
             // Readback and save
             StateRead(state, hm, wm, sm);
@@ -143,13 +146,9 @@ int main(int argc, char *argv[]) {
 
         launchPass2         (state);
         launchPass3         (state);
-        
-        // launchPass6         (state);
-
         launchPass4         (state);
         launchPass5         (state);
         launchPass6         (state);
-
     }
 
     cudaDeviceSynchronize();

@@ -3,6 +3,7 @@
 #include "utils/CudaUtils.cuh"
 #include "StateVector.cuh"
 #include "constants.cuh"
+#include "CFL.cuh"
 #include <cuda_runtime.h>
 
 __global__ void pass3(
@@ -52,11 +53,12 @@ __global__ void pass3(
     else 
         vC.x = ((fL.y + fC.y) - (fC.x + fR.x))/(2*dx*mean_h);
 
-    if (x == 0 || x == N-1)
+    if (y == 0 || y == N-1)
         vC.y = 0.f;
     else
         vC.y =-((fB.z + fC.z) - (fC.w + fT.w))/(2*dx*mean_h); // down direction is positive velocity
 
+    CFLcheck(vC.x, vC.y);
     surf2Dwrite(vC, T3write, x * sizeof(float2), y);
 
 }

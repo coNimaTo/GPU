@@ -22,7 +22,9 @@ echo DeviceID: $SGE_GPU
 # Read second argument from qsub
 ARG1=$1
 ARG2=$2
-echo "Running with argument: $ARG1,$ARG2"
+echo "Running with argument: $ARG1, $ARG2"
+
+cp $SGE_O_WORKDIR/$ARG2 .
 
 #ejecutar binario con sus respectivos argumentos
 ./terrain $ARG1 $ARG2

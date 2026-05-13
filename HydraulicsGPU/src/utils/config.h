@@ -8,7 +8,7 @@
 
 struct Config {
     // Grid
-    int   N           = 65;
+    // int   N           = 65;
     int   algorithm   = 2;
 
     // Simulation
@@ -53,7 +53,7 @@ struct Config {
         auto get_i = [&](const char* k, int&   v){ if (kv.count(k)) v = std::stoi(kv[k]); };
         auto get_f = [&](const char* k, float& v){ if (kv.count(k)) v = std::stof(kv[k]); };
 
-        get_i("N",           c.N);
+        // get_i("N",           c.N);
         get_i("algorithm",   c.algorithm);
         get_i("N_STEPS",     c.N_STEPS);
         get_i("FREQ_SAVE",   c.FREQ_SAVE);
@@ -74,7 +74,8 @@ struct Config {
 
     void print() const {
         printf("── Config ──────────────────────────\n");
-        printf("  N=%d  algorithm=%d\n",     N, algorithm);
+        // printf("  N=%d  algorithm=%d\n",     N, algorithm);
+        printf("  algorithm=%d\n", algorithm);
         printf("  N_STEPS=%d  FREQ_SAVE=%d\n", N_STEPS, FREQ_SAVE);
         printf("  DT=%.4f  G=%.2f  DX=%.2f\n", DT, GRAVITY, DX);
         printf("  KC=%.4f  KS=%.4f  KD=%.4f  KE=%.4f\n", KC, KS, KD, KE);
